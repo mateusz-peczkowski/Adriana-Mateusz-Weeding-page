@@ -6,6 +6,27 @@
 
     $firstCeremony = true;
 
+    $assetFile = file_exists('./dist/assets.json') ? json_decode(file_get_contents('./dist/assets.json')) : false;
+
+    $assets = [
+        "images/img_1.jpg"              => "images/img_1.jpg",
+        "images/img_2.jpg"              => "images/img_2.jpg",
+        "images/marker_1.png"           => "images/marker_1.png",
+        "images/marker_2.png"           => "images/marker_2.png",
+        "images/adriana.jpg"            => "images/adriana.jpg",
+        "images/mateusz.jpg"            => "images/mateusz.jpg",
+        "images/magda.jpg"              => "images/magda.jpg",
+        "images/dawid.jpg"              => "images/dawid.jpg",
+        "images/ola.jpg"                => "images/ola.jpg",
+        "images/marcin.jpg"             => "images/marcin.jpg",
+        "styles/main.css"               => "styles/main.css",
+        "scripts/main.js"               => "scripts/main.js"
+    ];
+
+    if ($assetFile) {
+        $assets = (array) $assetFile;
+    }
+
     if ($firstCeremony) {
         $data->ceremony_type = 'Ślub cywilny';
         $data->ceremony_type_context = "ślubu cywilnego";
@@ -15,34 +36,34 @@
             'name'      => 'Urząd Stanu Cywilnego w Szprotawie',
             'lat'       => 51.565844,
             'lng'       => 15.537373,
-            'marker'    => '/dist/images/marker_1.png'
+            'marker'    => '/dist/' . $assets['images/marker_1.png']
         ];
         $data->ceremony_second_place = (object) [
             'name'      => 'Restauracji przy hotelu Chrobry w Wiechlicach',
             'lat'       => 51.553467,
             'lng'       => 15.583677,
-            'marker'    => '/dist/images/marker_2.png'
+            'marker'    => '/dist/' . $assets['images/marker_2.png']
         ];
         $data->persons = [
             0 => (object) [
                 'name' => 'Adriana',
                 'function' => 'Panna Młoda',
-                'image' => '/dist/images/placeholder-man.jpg'
+                'image' => '/dist/' . $assets['images/adriana.jpg']
             ],
             1 => (object) [
                 'name' => 'Mateusz',
                 'function' => 'Pan Młody',
-                'image' => '/dist/images/placeholder-man.jpg'
+                'image' => '/dist/' . $assets['images/mateusz.jpg']
             ],
             2 => (object) [
                 'name' => 'Magda',
                 'function' => 'Świadowa Pani Młodej',
-                'image' => '/dist/images/placeholder-man.jpg'
+                'image' => '/dist/' . $assets['images/magda.jpg']
             ],
             3 => (object) [
                 'name' => 'Dawid',
                 'function' => 'Świadek Pana Młodego',
-                'image' => '/dist/images/placeholder-man.jpg'
+                'image' => '/dist/' . $assets['images/dawid.jpg']
             ],
         ];
     }
@@ -85,7 +106,7 @@
         <meta name="msapplication-TileImage" content="/resources/favicons/ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="stylesheet" type="text/css" href="/dist/styles/main.css">
+        <link rel="stylesheet" type="text/css" href="/dist/<?= $assets['styles/main.css'] ?>">
     </head>
 
 <body>
@@ -100,7 +121,7 @@
         <div class="grid-sizer"></div>
 
         <div class="grid-item | box box-content">
-            <div class="box--body" style="background-image: url('/dist/images/img_2.jpg')">
+            <div class="box--body" style="background-image: url('/dist/<?= $assets['images/img_2.jpg'] ?>')">
                 <div class="content">
                     <h4>Serdecznie witamy<br />naszych gości</h4>
                     <p>Mamy przyjemność zaprosić Was drodzy mili na naszą uroczystość <?= $data->ceremony_type_context ?>, która odbędzie się w mieście Szprotawa.</p>
@@ -110,7 +131,7 @@
         </div>
 
         <div class="grid-item | box box-content">
-            <div class="box--body" style="background-image: url('/dist/images/img_1.jpg')">
+            <div class="box--body" style="background-image: url('/dist/<?= $assets['images/img_1.jpg'] ?>')">
                 <div class="content">
                     <h1><?= $data->mrs ?> & <?= $data->mr ?></h1>
                     <h2><?= $data->ceremony_type ?></h2>
@@ -163,7 +184,7 @@
     </div>
 
     <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
-    <script type="text/javascript" src="/dist/scripts/main.js"></script>
+    <script type="text/javascript" src="/dist/<?= $assets['scripts/main.js'] ?>"></script>
 
     <script>
         function initMap() {
