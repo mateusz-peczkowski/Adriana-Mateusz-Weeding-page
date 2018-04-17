@@ -4,16 +4,24 @@
     $ceremonies = [
         new DateTime('10.08.2018 15:30:00'),
         new DateTime('12.08.2018 00:00:00'),
-        new DateTime('22.08.2020 14:00:00')
+        new DateTime('22.08.2020 14:00:00'),
+        new DateTime('24.08.2020 00:00:00')
     ];
 
     $currentDate = new DateTime();
 
     $firstCeremony = true;
     $showFeature = false;
+    $showSecondFeature = false;
+    $noCeremony = false;
 
     if ($currentDate > $ceremonies[0] && $currentDate < $ceremonies[1]) {
         $showFeature = true;
+    } else if ($currentDate > $ceremonies[2] && $currentDate < $ceremonies[3]) {
+        $showSecondFeature = true;
+    } else if ($currentDate > $ceremonies[3]) {
+        $noCeremony = true;
+        $firstCeremony = false;
     } else if ($currentDate > $ceremonies[0]) {
         $firstCeremony = false;
     }
@@ -103,28 +111,54 @@
             'lng'       => 15.524519,
             'marker'    => '/dist/' . $assets['images/marker_2.png']
         ];
-        $data->persons = [
-            0 => (object) [
-                'name' => 'Adriana',
-                'function' => 'Panna Młoda',
-                'image' => '/dist/' . $assets['images/adriana.jpg']
-            ],
-            1 => (object) [
-                'name' => 'Mateusz',
-                'function' => 'Pan Młody',
-                'image' => '/dist/' . $assets['images/mateusz.jpg']
-            ],
-            2 => (object) [
-                'name' => 'Ola',
-                'function' => 'Świadowa Pani Młodej',
-                'image' => '/dist/' . $assets['images/ola.jpg']
-            ],
-            3 => (object) [
-                'name' => 'Marcin',
-                'function' => 'Świadek Pana Młodego',
-                'image' => '/dist/' . $assets['images/marcin.jpg']
-            ],
-        ];
+
+        if (!$noCeremony) {
+            $data->persons = [
+                0 => (object)[
+                    'name' => 'Adriana',
+                    'function' => 'Panna Młoda',
+                    'image' => '/dist/' . $assets['images/adriana.jpg']
+                ],
+                1 => (object)[
+                    'name' => 'Mateusz',
+                    'function' => 'Pan Młody',
+                    'image' => '/dist/' . $assets['images/mateusz.jpg']
+                ],
+                2 => (object)[
+                    'name' => 'Ola',
+                    'function' => 'Świadowa Pani Młodej',
+                    'image' => '/dist/' . $assets['images/ola.jpg']
+                ],
+                3 => (object)[
+                    'name' => 'Marcin',
+                    'function' => 'Świadek Pana Młodego',
+                    'image' => '/dist/' . $assets['images/marcin.jpg']
+                ],
+            ];
+        } else {
+            $data->persons = [
+                0 => (object)[
+                    'name' => 'Magda',
+                    'function' => 'Świadowa Pani Młodej',
+                    'image' => '/dist/' . $assets['images/magda.jpg']
+                ],
+                1 => (object)[
+                    'name' => 'Dawid',
+                    'function' => 'Świadek Pana Młodego',
+                    'image' => '/dist/' . $assets['images/dawid.jpg']
+                ],
+                2 => (object)[
+                    'name' => 'Ola',
+                    'function' => 'Świadowa Pani Młodej',
+                    'image' => '/dist/' . $assets['images/ola.jpg']
+                ],
+                3 => (object)[
+                    'name' => 'Marcin',
+                    'function' => 'Świadek Pana Młodego',
+                    'image' => '/dist/' . $assets['images/marcin.jpg']
+                ],
+            ];
+        }
     }
 ?>
 <!DOCTYPE html>
@@ -178,16 +212,22 @@
         </div>
     </div>
 
-    <?php if (!$showFeature) : ?>
+    <?php if (!$showFeature AND !$showSecondFeature) : ?>
     <div class="boxes-hld | js-mosaic-holder">
         <div class="grid-sizer"></div>
 
         <div class="grid-item | box box-content">
             <div class="box--body" style="background-image: url('/dist/<?= $assets['images/img_2.jpg'] ?>')">
                 <div class="content">
-                    <h4>Serdecznie witamy<br />naszych gości</h4>
-                    <p>Mamy przyjemność zaprosić Was drodzy mili na naszą uroczystość <?= $data->ceremony_type_context ?>, która odbędzie się w mieście Szprotawa.</p>
-                    <p>Prosimy, abyście zapoznali się z mapką dojazdu i przybyli koniecznie na czas :)</p>
+                    <?php if (!$noCeremony) : ?>
+                        <h4>Serdecznie witamy<br />naszych gości</h4>
+                        <p>Mamy przyjemność zaprosić Was drodzy mili na naszą uroczystość <?= $data->ceremony_type_context ?>, która odbędzie się w mieście Szprotawa.</p>
+                        <p>Prosimy, abyście zapoznali się z mapką dojazdu i przybyli koniecznie na czas :)</p>
+                    <?php else : ?>
+                        <h4>Dziękujemy wszystkim</h4>
+                        <p>Dziękujemy wszystkim gościom za przybycie.</p>
+                        <p>Do zobaczenia wkrótce ;)</p>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -195,9 +235,11 @@
         <div class="grid-item | box box-content">
             <div class="box--body" style="background-image: url('/dist/<?= $assets['images/img_1.jpg'] ?>')">
                 <div class="content">
-                    <h1><?= $data->mrs ?> & <?= $data->mr ?></h1>
-                    <h2><?= $data->ceremony_type ?></h2>
-                    <h3><?= $data->ceremony_date ?> (<?= $diffInDays === '0' ? 'Już dziś!' : ($diffInDays === '1' ? 'Już jutro!' : 'za ' . $diffInDays . ' dni') ?>)</h3>
+                    <h1><?= $data->mrs ?> & <?= $data->mr ?><?= $noCeremony ? ' Pęczkowscy' : '' ?></h1>
+                    <?php if (!$noCeremony) : ?>
+                        <h2><?= $data->ceremony_type ?></h2>
+                        <h3><?= $data->ceremony_date ?> (<?= $diffInDays === '0' ? 'Jedźmy!' : ($diffInDays === '1' ? 'Jutro trzeba wstać!' : 'za ' . $diffInDays . ' dni') ?>)</h3>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
@@ -220,6 +262,7 @@
         </div>
         <?php endif; ?>
 
+        <?php if (!$noCeremony) : ?>
         <div class="grid-item | map">
             <div class="box box-featured">
                 <div class="box--body">
@@ -249,58 +292,75 @@
                 </div>
             </div>
         </div>
+        <?php endif; ?>
     </div>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="/dist/<?= $assets['scripts/main.js'] ?>"></script>
 
-    <script>
-        function initMap() {
-            let bounds = new google.maps.LatLngBounds();
+    <?php if (!$noCeremony) : ?>
+        <script>
+            function initMap() {
+                let bounds = new google.maps.LatLngBounds();
 
-            let map = new google.maps.Map(document.getElementById('map'), {
-                mapTypeId: 'roadmap'
-            });
-
-            const markers = [
-                <?php if ($data->ceremony_first_place->lat AND $data->ceremony_first_place->lng AND $data->ceremony_first_place->marker) : ?>
-                ['<?= $data->ceremony_first_place->name ?>', <?= $data->ceremony_first_place->lat ?>, <?= $data->ceremony_first_place->lng ?>, '<?= $data->ceremony_first_place->marker ?>'],
-                <?php endif; ?>
-                <?php if ($data->ceremony_second_place->lat AND $data->ceremony_second_place->lng AND $data->ceremony_second_place->marker) : ?>
-                ['<?= $data->ceremony_second_place->name ?>', <?= $data->ceremony_second_place->lat ?>, <?= $data->ceremony_second_place->lng ?>, '<?= $data->ceremony_second_place->marker ?>'],
-                <?php endif; ?>
-            ];
-
-            for( i = 0; i < markers.length; i++ ) {
-                const position = new google.maps.LatLng(markers[i][1], markers[i][2]);
-
-                bounds.extend(position);
-
-                marker = new google.maps.Marker({
-                    position: position,
-                    map: map,
-                    icon: markers[i][3]
+                let map = new google.maps.Map(document.getElementById('map'), {
+                    mapTypeId: 'roadmap'
                 });
 
-                map.fitBounds(bounds);
-            }
+                const markers = [
+                    <?php if ($data->ceremony_first_place->lat AND $data->ceremony_first_place->lng AND $data->ceremony_first_place->marker) : ?>
+                    ['<?= $data->ceremony_first_place->name ?>', <?= $data->ceremony_first_place->lat ?>, <?= $data->ceremony_first_place->lng ?>, '<?= $data->ceremony_first_place->marker ?>'],
+                    <?php endif; ?>
+                    <?php if ($data->ceremony_second_place->lat AND $data->ceremony_second_place->lng AND $data->ceremony_second_place->marker) : ?>
+                    ['<?= $data->ceremony_second_place->name ?>', <?= $data->ceremony_second_place->lat ?>, <?= $data->ceremony_second_place->lng ?>, '<?= $data->ceremony_second_place->marker ?>'],
+                    <?php endif; ?>
+                ];
 
-            let boundsListener = google.maps.event.addListener((map), 'bounds_changed', function() {
-                this.setZoom(14);
-                google.maps.event.removeListener(boundsListener);
-            });
-        }
-    </script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkaudnMEUrjg4P4FR7UoKzIcD69r5dW88&callback=initMap">
-    </script>
+                for( i = 0; i < markers.length; i++ ) {
+                    const position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+
+                    bounds.extend(position);
+
+                    marker = new google.maps.Marker({
+                        position: position,
+                        map: map,
+                        icon: markers[i][3]
+                    });
+
+                    map.fitBounds(bounds);
+                }
+
+                let boundsListener = google.maps.event.addListener((map), 'bounds_changed', function() {
+                    this.setZoom(14);
+                    google.maps.event.removeListener(boundsListener);
+                });
+            }
+        </script>
+        <script async defer
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkaudnMEUrjg4P4FR7UoKzIcD69r5dW88&callback=initMap">
+        </script>
+    <?php endif; ?>
+        
+    <?php elseif($showFeature) : ?>
+
+        <div class="boxes-hld">
+            <div class="full-box">
+                <div class="content">
+                    <h1>Gratulujemy Pani Pęczkowska ;)</h1>
+                </div>
+            </div>
+        </div>
+
+
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="/dist/<?= $assets['scripts/main.js'] ?>"></script>
 
     <?php else: ?>
 
         <div class="boxes-hld">
             <div class="full-box">
                 <div class="content">
-                    <h1>Gratulujemy Pani Pęczkowska ;)</h1>
+                    <h1>A jednak wytrzymali ze sobą ;)</h1>
                 </div>
             </div>
         </div>
