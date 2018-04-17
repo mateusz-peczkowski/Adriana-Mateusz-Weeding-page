@@ -1,0 +1,60 @@
+.site--loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  width: 100%;
+  height: 100%;
+  background: $c-white;
+
+  .logo h3 {
+    @include font-head();
+
+    width: 0;
+    overflow: hidden;
+    margin: 0 auto;
+    border-right: .15em solid rgba($c-main, .3);
+    color: $c-main;
+    font-size: 90px;
+    letter-spacing: .15em;
+    white-space: nowrap;
+
+    span {
+      color: $c-black;
+      font-size: 50px;
+    }
+  }
+
+  &.show-animate .logo {
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &.show-animate .logo h3 {
+    animation: typing .5s steps(4, end) .5s forwards, blink-caret .5s step-end infinite;
+  }
+
+  @keyframes typing {
+    from {
+      width: 0;
+    }
+
+    to {
+      width: 100%;
+    }
+  }
+
+  @keyframes blink-caret {
+    from,
+    to {
+      border-color: transparent;
+    }
+
+    50% {
+      border-color: rgba($c-main, .3);
+    }
+  }
+}

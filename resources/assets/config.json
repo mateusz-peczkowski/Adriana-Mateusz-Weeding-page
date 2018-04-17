@@ -1,0 +1,12 @@
+{
+  "entry": {
+    "main": [
+      "./scripts/main.js",
+      "./styles/main.scss"
+    ]
+  },
+  "publicPath": "/",
+  "devUrl": "http://adriana-mateusz.priv",
+  "proxyUrl": "http://localhost:9393",
+  "cacheBusting": "[name]_[hash:8]"
+}

@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css?family=Alegreya+Sans+SC:300,700|Kaushan+Script:400&subset=latin-ext');
+
+@mixin font-head() {
+  font-family: 'Kaushan Script', cursive;
+  font-weight: 400;
+}
+
+@mixin font-std($font-weight: 700) {
+  @if ($font-weight != 300 and $font-weight != 700) {
+    $font-weight: 700;
+  }
+
+  font-family: 'Alegreya Sans SC', sans-serif;
+  font-weight: $font-weight;
+}

@@ -1,0 +1,426 @@
+body {
+  @include font-std();
+
+  display: block;
+  margin: 0;
+  padding: 0;
+
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @include font-head();
+
+    margin: 0;
+    padding: 0;
+    color: $c-main;
+  }
+
+  p {
+    @include font-std();
+
+    margin: 0;
+    padding: 0;
+    color: $c-black;
+    line-height: 140%;
+  }
+}
+
+.boxes-hld {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0;
+  padding: 8px;
+
+  .box {
+    flex: 0 0 100%;
+    padding: 8px;
+
+    &--body {
+      background: $c-white;
+      text-align: center;
+    }
+
+    &--body:not(.no-padding) {
+      padding: 30px 15px;
+      border: 1px solid #efefef;
+
+      @media screen and (min-width: 450px) and (max-width: 1000px), screen and (min-width: 1500px) {
+        padding-top: 45px;
+        padding-bottom: 45px;
+      }
+    }
+  }
+
+  .box-content {
+    line-height: 180%;
+
+    .box--body {
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: cover;
+    }
+
+    .box--body .content {
+      max-width: 400px;
+      margin: 0 auto;
+
+      @media screen and (min-width: 768px) and (max-width: 1000px), screen and (min-width: 1800px) {
+        max-width: 480px;
+      }
+    }
+  }
+
+  .box-content h1 {
+    font-size: 24px;
+    line-height: 140%;
+
+    @media screen and (min-width: 450px) and (max-width: 1000px), screen and (min-width: 1500px) {
+      font-size: 34px;
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1000px), screen and (min-width: 1800px) {
+      font-size: 42px;
+    }
+  }
+
+  .box-content h2 {
+    color: $c-black;
+    font-size: 20px;
+    line-height: 140%;
+
+    @media screen and (min-width: 450px) and (max-width: 1000px), screen and (min-width: 1500px) {
+      font-size: 28px;
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1000px), screen and (min-width: 1800px) {
+      font-size: 36px;
+    }
+  }
+
+  .box-content h3 {
+    color: $c-black;
+    font-size: 16px;
+    line-height: 140%;
+
+    @media screen and (min-width: 450px) and (max-width: 1000px), screen and (min-width: 1500px) {
+      font-size: 24px;
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1000px), screen and (min-width: 1800px) {
+      font-size: 32px;
+    }
+  }
+
+  .box-content h4 {
+    font-size: 20px;
+    line-height: 140%;
+
+    @media screen and (min-width: 450px) and (max-width: 1000px), screen and (min-width: 1500px) {
+      font-size: 32px;
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1000px), screen and (min-width: 1800px) {
+      font-size: 38px;
+    }
+  }
+
+  .box-content p {
+    margin: 15px 0;
+    color: $c-black;
+    font-size: 14px;
+
+    @media screen and (min-width: 450px) and (max-width: 1000px), screen and (min-width: 1500px) {
+      margin-top: 30px;
+      margin-bottom: 30px;
+      font-size: 18px;
+    }
+
+    @media screen and (min-width: 768px) and (max-width: 1000px), screen and (min-width: 1800px) {
+      font-size: 22px;
+    }
+
+    &:last-child {
+      margin-bottom: 0 !important;
+    }
+  }
+
+  .box-persons {
+    padding: 0;
+  }
+
+  .box-persons ul {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+
+    li {
+      flex: 0 0 100%;
+      position: relative;
+      margin: 0;
+      padding: 8px;
+      list-style-type: none;
+
+      @media screen and (min-width: 450px) and (max-width: 1000px), screen and (min-width: 1500px) {
+        flex: 0 0 50%;
+      }
+    }
+
+    .img-hld {
+      display: block;
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: calc(100vw - 16px);
+      background-repeat: no-repeat;
+      background-position: top center;
+      background-size: cover;
+
+      @media screen and (min-width: 450px) and (max-width: 1000px), screen and (min-width: 1500px) {
+        height: calc(50vw - 16px);
+      }
+
+      img {
+        display: none;
+      }
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba($c-black, .7);
+        transition: .4s all ease;
+      }
+    }
+
+    li:hover .img-hld::before {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .img-content {
+      position: absolute;
+      bottom: 15px;
+      left: 15px;
+      z-index: 2;
+      text-align: left;
+
+      @media screen and (min-width: 768px) and (max-width: 1000px), screen and (min-width: 1800px) {
+        bottom: 30px;
+        left: 30px;
+      }
+    }
+
+    .img-content h4 {
+      font-size: 22px;
+      line-height: 140%;
+
+      @media screen and (min-width: 450px) and (max-width: 1000px), screen and (min-width: 1500px) {
+        font-size: 28px;
+      }
+
+      @media screen and (min-width: 768px) and (max-width: 1000px), screen and (min-width: 1800px) {
+        font-size: 34px;
+      }
+    }
+
+    .img-content h5 {
+      @include font-std();
+
+      color: $c-white;
+      font-size: 14px;
+      line-height: 140%;
+
+      @media screen and (min-width: 450px) and (max-width: 1000px), screen and (min-width: 1500px) {
+        font-size: 16px;
+      }
+
+      @media screen and (min-width: 768px) and (max-width: 1000px), screen and (min-width: 1800px) {
+        font-size: 18px;
+      }
+    }
+  }
+
+  .box-featured {
+    border: 0;
+
+    .box--body {
+      background: $c-main;
+    }
+
+    h4 {
+      color: $c-white;
+      font-size: 16px;
+      line-height: 140%;
+
+      @media screen and (min-width: 450px) and (max-width: 1000px), screen and (min-width: 1500px) {
+        font-size: 24px;
+      }
+
+      @media screen and (min-width: 768px) and (max-width: 1000px), screen and (min-width: 1800px) {
+        font-size: 32px;
+      }
+    }
+
+    p {
+      margin: 0 0 15px;
+      color: $c-black;
+      font-size: 14px;
+
+      @media screen and (min-width: 450px) and (max-width: 1000px), screen and (min-width: 1500px) {
+        margin-bottom: 20px;
+        font-size: 18px;
+      }
+
+      @media screen and (min-width: 768px) and (max-width: 1000px), screen and (min-width: 1800px) {
+        margin-bottom: 30px;
+        font-size: 22px;
+      }
+
+      &:last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+  }
+
+  .box-map #map {
+    display: block;
+    width: 100%;
+    height: calc(100vw - 50px);
+
+    @media screen and (min-width: 768px) and (max-width: 1000px), screen and (min-width: 1800px) {
+      height: 720px;
+    }
+
+    @media screen and (min-width: 1000px) {
+      height: 100%;
+    }
+  }
+
+  @media screen and (max-width: 1000px) {
+    .box-content:nth-child(2) {
+      order: 2;
+    }
+
+    .box-content:nth-child(3) {
+      order: 1;
+    }
+
+    .box-persons {
+      order: 3;
+    }
+
+    .box-featured {
+      order: 4;
+    }
+
+    .box-map {
+      order: 5;
+    }
+  }
+
+  @media screen and (min-width: 1000px) {
+    display: block;
+    padding: 0;
+
+    .grid-sizer {
+      width: calc(100% / 3);
+    }
+
+    .box-content:nth-child(2) {
+      width: calc(100% / 3);
+      height: 60vh;
+      min-height: 400px;
+    }
+
+    .box-content:nth-child(3) {
+      width: calc(100% / 3 * 2);
+      height: 30vh;
+    }
+
+    .box-persons {
+      width: calc(100% / 3 * 2);
+      height: 30vh;
+
+      ul {
+        height: 100%;
+        margin: -8px;
+      }
+
+      ul li {
+        flex: 0 0 25%;
+        height: 100%;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+
+      ul .img-hld {
+        height: 100%;
+      }
+    }
+
+    .box-featured {
+      width: calc(100% / 3);
+      height: 100%;
+    }
+
+    .box-map {
+      width: calc(100% / 3 * 2);
+      height: 100%;
+    }
+
+    .grid-item.map {
+      display: flex;
+      width: 100%;
+      height: 40vh;
+      min-height: 300px;
+    }
+
+    .box {
+      flex: auto;
+      min-height: 200px;
+      overflow: hidden;
+      padding: 8px;
+    }
+
+    .box--body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  @media screen and (min-width: 1500px) {
+    .box {
+      min-height: 250px;
+    }
+
+    .box-content:nth-child(2) {
+      min-height: 500px;
+    }
+
+    .grid-item.map {
+      min-height: 320px;
+    }
+  }
+
+  @media screen and (min-width: 1800px) {
+    .grid-item.map {
+      min-height: 420px;
+    }
+  }
+}
