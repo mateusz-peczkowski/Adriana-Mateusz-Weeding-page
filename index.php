@@ -1,10 +1,30 @@
 <?php
-    $data = (object) [
-        'mr'                => 'Mateusz',
-        'mrs'               => 'Adriana'
+    date_default_timezone_set('Europe/Warsaw');
+
+    $ceremonies = [
+        new DateTime('10.08.2018 15:30:00'),
+        new DateTime('12.08.2018 00:00:00'),
+        new DateTime('22.08.2020 14:00:00')
     ];
 
+    $currentDate = new DateTime();
+
     $firstCeremony = true;
+    $showFeature = false;
+
+    if ($currentDate > $ceremonies[0] && $currentDate < $ceremonies[1]) {
+        $showFeature = true;
+    } else if ($currentDate > $ceremonies[0]) {
+        $firstCeremony = false;
+    }
+
+    $data = (object) [
+        'mr'                => 'Mateusz',
+        'mrs'               => 'Adriana',
+        'check_date'        =>  ($firstCeremony ? $ceremonies[0] : $ceremonies[2])
+    ];
+
+    $diffInDays = date_diff($currentDate, $data->check_date)->format('%a');
 
     $assetFile = file_exists('./dist/assets.json') ? json_decode(file_get_contents('./dist/assets.json')) : false;
 
@@ -39,7 +59,7 @@
             'marker'    => '/dist/' . $assets['images/marker_1.png']
         ];
         $data->ceremony_second_place = (object) [
-            'name'      => 'Restauracji przy hotelu Chrobry w Wiechlicach',
+            'name'      => 'Restauracja przy hotelu Chrobry w Wiechlicach',
             'lat'       => 51.553467,
             'lng'       => 15.583677,
             'marker'    => '/dist/' . $assets['images/marker_2.png']
@@ -64,6 +84,45 @@
                 'name' => 'Dawid',
                 'function' => 'Świadek Pana Młodego',
                 'image' => '/dist/' . $assets['images/dawid.jpg']
+            ],
+        ];
+    } else {
+        $data->ceremony_type = 'Ślub kościelny';
+        $data->ceremony_type_context = "ślubu kościelnego";
+        $data->ceremony_date = '22.08.2020';
+        $data->ceremony_time = false;
+        $data->ceremony_first_place = (object) [
+            'name'      => false,
+            'lat'       => false,
+            'lng'       => false,
+            'marker'    => false
+        ];
+        $data->ceremony_second_place = (object) [
+            'name'      => 'Zagroda Biesiadna Elżbieta Karczewska',
+            'lat'       => 51.568080,
+            'lng'       => 15.524519,
+            'marker'    => '/dist/' . $assets['images/marker_2.png']
+        ];
+        $data->persons = [
+            0 => (object) [
+                'name' => 'Adriana',
+                'function' => 'Panna Młoda',
+                'image' => '/dist/' . $assets['images/adriana.jpg']
+            ],
+            1 => (object) [
+                'name' => 'Mateusz',
+                'function' => 'Pan Młody',
+                'image' => '/dist/' . $assets['images/mateusz.jpg']
+            ],
+            2 => (object) [
+                'name' => 'Ola',
+                'function' => 'Świadowa Pani Młodej',
+                'image' => '/dist/' . $assets['images/ola.jpg']
+            ],
+            3 => (object) [
+                'name' => 'Marcin',
+                'function' => 'Świadek Pana Młodego',
+                'image' => '/dist/' . $assets['images/marcin.jpg']
             ],
         ];
     }
@@ -119,6 +178,7 @@
         </div>
     </div>
 
+    <?php if (!$showFeature) : ?>
     <div class="boxes-hld | js-mosaic-holder">
         <div class="grid-sizer"></div>
 
@@ -137,7 +197,7 @@
                 <div class="content">
                     <h1><?= $data->mrs ?> & <?= $data->mr ?></h1>
                     <h2><?= $data->ceremony_type ?></h2>
-                    <h3><?= $data->ceremony_date ?></h3>
+                    <h3><?= $data->ceremony_date ?> (<?= $diffInDays === '0' ? 'Już dziś!' : ($diffInDays === '1' ? 'Już jutro!' : 'za ' . $diffInDays . ' dni') ?>)</h3>
                 </div>
             </div>
         </div>
@@ -166,14 +226,20 @@
                     <h4>Data:</h4>
                     <p><?= $data->ceremony_date ?></p>
 
-                    <h4>Godzina:</h4>
-                    <p><?= $data->ceremony_time ?></p>
+                    <?php if ($data->ceremony_time): ?>
+                        <h4>Godzina:</h4>
+                        <p><?= $data->ceremony_time ?></p>
+                    <?php endif; ?>
 
-                    <h4>Miejsce ślubu:</h4>
-                    <p><?= $data->ceremony_first_place->name ?></p>
+                    <?php if ($data->ceremony_first_place->name) : ?>
+                        <h4>Miejsce ślubu:</h4>
+                        <p><?= $data->ceremony_first_place->name ?></p>
+                    <?php endif; ?>
 
-                    <h4>Uroczystość:</h4>
-                    <p><?= $data->ceremony_second_place->name ?></p>
+                    <?php if ($data->ceremony_second_place->name) : ?>
+                        <h4>Uroczystość:</h4>
+                        <p><?= $data->ceremony_second_place->name ?></p>
+                    <?php endif; ?>
                 </div>
             </div>
 
@@ -228,5 +294,21 @@
     <script async defer
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkaudnMEUrjg4P4FR7UoKzIcD69r5dW88&callback=initMap">
     </script>
+
+    <?php else: ?>
+
+        <div class="boxes-hld">
+            <div class="full-box">
+                <div class="content">
+                    <h1>Gratulujemy Pani Pęczkowska ;)</h1>
+                </div>
+            </div>
+        </div>
+
+
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="/dist/<?= $assets['scripts/main.js'] ?>"></script>
+
+    <?php endif; ?>
 </body>
 </html>

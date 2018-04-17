@@ -423,4 +423,12 @@ body {
       min-height: 420px;
     }
   }
+
+  .full-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+  }
 }
