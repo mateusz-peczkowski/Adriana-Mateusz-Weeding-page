@@ -88,6 +88,8 @@
 
         <meta name="mobile-web-app-capable" content="yes">
 
+        <meta name="robots" content="noindex,nofollow">
+
         <link rel="apple-touch-icon" sizes="57x57" href="/resources/favicons/apple-icon-57x57.png">
         <link rel="apple-touch-icon" sizes="60x60" href="/resources/favicons/apple-icon-60x60.png">
         <link rel="apple-touch-icon" sizes="72x72" href="/resources/favicons/apple-icon-72x72.png">
@@ -183,7 +185,7 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="/node_modules/jquery/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="/dist/<?= $assets['scripts/main.js'] ?>"></script>
 
     <script>
