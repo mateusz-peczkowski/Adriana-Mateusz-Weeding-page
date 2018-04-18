@@ -87,7 +87,7 @@
             ],
             2 => (object) [
                 'name' => 'Magda',
-                'function' => 'Świadowa Pani Młodej',
+                'function' => 'Świadkowa Panny Młodej',
                 'image' => '/dist/' . $assets['images/magda.jpg']
             ],
             3 => (object) [
@@ -130,7 +130,7 @@
                 ],
                 2 => (object)[
                     'name' => 'Ola',
-                    'function' => 'Świadowa Pani Młodej',
+                    'function' => 'Świadkowa Panny Młodej',
                     'image' => '/dist/' . $assets['images/ola.jpg']
                 ],
                 3 => (object)[
@@ -143,7 +143,7 @@
             $data->persons = [
                 0 => (object)[
                     'name' => 'Magda',
-                    'function' => 'Świadowa Pani Młodej',
+                    'function' => 'Świadowa Panny Młodej',
                     'image' => '/dist/' . $assets['images/magda.jpg']
                 ],
                 1 => (object)[
@@ -153,7 +153,7 @@
                 ],
                 2 => (object)[
                     'name' => 'Ola',
-                    'function' => 'Świadowa Pani Młodej',
+                    'function' => 'Świadowa Panny Młodej',
                     'image' => '/dist/' . $assets['images/ola.jpg']
                 ],
                 3 => (object)[
@@ -368,7 +368,7 @@
         <div class="boxes-hld">
             <div class="full-box">
                 <div class="content">
-                    <h1>Gratulujemy Pani Pęczkowska ;)</h1>
+                    <h1>Gratulujemy Pani Pęczkowskiej ;)</h1>
                 </div>
             </div>
         </div>
