@@ -41,8 +41,7 @@
         "images/img_2.jpg"              => "images/img_2.jpg",
         "images/marker_1.png"           => "images/marker_1.png",
         "images/marker_2.png"           => "images/marker_2.png",
-        "images/adriana.jpg"            => "images/adriana.jpg",
-        "images/mateusz.jpg"            => "images/mateusz.jpg",
+        "images/adriana_mateusz.jpg"    => "images/adriana_mateusz.jpg",
         "images/magda.jpg"              => "images/magda.jpg",
         "images/dawid.jpg"              => "images/dawid.jpg",
         "images/ola.jpg"                => "images/ola.jpg",
@@ -76,21 +75,22 @@
         ];
         $data->persons = [
             0 => (object) [
-                'name' => 'Adriana',
-                'function' => 'Panna Młoda',
-                'image' => '/dist/' . $assets['images/adriana.jpg']
-            ],
-            1 => (object) [
-                'name' => 'Mateusz',
-                'function' => 'Pan Młody',
-                'image' => '/dist/' . $assets['images/mateusz.jpg']
-            ],
-            2 => (object) [
                 'name' => 'Magda',
                 'function' => 'Świadkowa Panny Młodej',
                 'image' => '/dist/' . $assets['images/magda.jpg']
             ],
-            3 => (object) [
+            1 => [
+                0 => (object) [
+                  'name' => 'Adriana',
+                  'function' => 'Panna Młoda'
+                ],
+                1 => (object) [
+                    'name' => 'Mateusz',
+                    'function' => 'Pan Młody'
+                ],
+                'image' => '/dist/' . $assets['images/adriana_mateusz.jpg']
+            ],
+            2 => (object) [
                 'name' => 'Dawid',
                 'function' => 'Świadek Pana Młodego',
                 'image' => '/dist/' . $assets['images/dawid.jpg']
@@ -118,22 +118,23 @@
 
         if (!$noCeremony) {
             $data->persons = [
-                0 => (object)[
-                    'name' => 'Adriana',
-                    'function' => 'Panna Młoda',
-                    'image' => '/dist/' . $assets['images/adriana.jpg']
-                ],
-                1 => (object)[
-                    'name' => 'Mateusz',
-                    'function' => 'Pan Młody',
-                    'image' => '/dist/' . $assets['images/mateusz.jpg']
-                ],
-                2 => (object)[
+                0 => (object) [
                     'name' => 'Ola',
                     'function' => 'Świadkowa Panny Młodej',
                     'image' => '/dist/' . $assets['images/ola.jpg']
                 ],
-                3 => (object)[
+                1 => [
+                    0 => (object) [
+                        'name' => 'Adriana',
+                        'function' => 'Panna Młoda'
+                    ],
+                    1 => (object) [
+                        'name' => 'Mateusz',
+                        'function' => 'Pan Młody'
+                    ],
+                    'image' => '/dist/' . $assets['images/adriana_mateusz.jpg']
+                ],
+                2 => (object) [
                     'name' => 'Marcin',
                     'function' => 'Świadek Pana Młodego',
                     'image' => '/dist/' . $assets['images/marcin.jpg']
@@ -253,12 +254,23 @@
             <div class="box--body no-padding">
                 <ul>
                     <?php foreach($persons as $person) : ?>
-                        <li>
-                            <div class="img-hld" style="background-image: url('<?= $person->image ?>')"><img src="<?= $person->image ?>" alt="<?= $person->name ?>"></div>
+                        <li<?= is_array($person) ? ' class="double"' : '' ?>>
+                            <div class="img-hld" style="background-image: url('<?= is_array($person) ? $person['image'] : $person->image ?>')"><img src="<?= is_array($person) ? $person['image'] : $person->image ?>" alt="<?= is_array($person) ? $person[0]->name . ' i ' . $person[1]->name : $person->name ?>"></div>
+                            <?php if(is_array($person)) : ?>
+                                <?php foreach($person as $per) : ?>
+                                    <?php if(is_object($per)) : ?>
+                                        <div class="img-content">
+                                            <h4><?= $per->name ?></h4>
+                                            <h5><?= $per->function ?></h5>
+                                        </div>
+                                    <?php endif; ?>
+                                <?php endforeach; ?>
+                            <?php else: ?>
                             <div class="img-content">
                                 <h4><?= $person->name ?></h4>
                                 <h5><?= $person->function ?></h5>
                             </div>
+                            <?php endif; ?>
                         </li>
                     <?php endforeach; ?>
                 </ul>
