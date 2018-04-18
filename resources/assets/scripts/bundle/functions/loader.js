@@ -11,5 +11,5 @@ export function init($loader) {
 
     setTimeout(function() {
         loader.fadeOut();
-    }, 1500);
+    }, 3500);
 }

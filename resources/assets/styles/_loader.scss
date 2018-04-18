@@ -34,7 +34,7 @@
   }
 
   &.show-animate .logo h3 {
-    animation: typing .5s steps(4, end) .5s forwards, blink-caret .5s step-end infinite;
+    animation: typing 1s steps(3, end) .5s forwards, blink-caret .8s step-end infinite;
   }
 
   @keyframes typing {
