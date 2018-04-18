@@ -64,13 +64,15 @@
             'name'      => 'Urząd Stanu Cywilnego w Szprotawie',
             'lat'       => 51.565844,
             'lng'       => 15.537373,
-            'marker'    => '/dist/' . $assets['images/marker_1.png']
+            'marker'    => '/dist/' . $assets['images/marker_1.png'],
+            'description' => '<p>ul. Rynek 45,<br />67-300 Szprotawa</p><p>Godzina: ' . $data->ceremony_time . '</p><p><a href="http://szprotawa.pl/" target="_blank">szprotawa.pl</a></p>'
         ];
         $data->ceremony_second_place = (object) [
             'name'      => 'Restauracja przy hotelu Chrobry w Wiechlicach',
             'lat'       => 51.553467,
             'lng'       => 15.583677,
-            'marker'    => '/dist/' . $assets['images/marker_2.png']
+            'marker'    => '/dist/' . $assets['images/marker_2.png'],
+            'description' => '<p>Jesionowa 3,<br />67-300 Szprotawa</p><p><a href="http://www.chrobry.hotelewpolsce.pl/" target="_blank">chrobry.hotelewpolsce.pl</a></p>'
         ];
         $data->persons = [
             0 => (object) [
@@ -103,13 +105,15 @@
             'name'      => false,
             'lat'       => false,
             'lng'       => false,
-            'marker'    => false
+            'marker'    => false,
+            'description' => false
         ];
         $data->ceremony_second_place = (object) [
             'name'      => 'Zagroda Biesiadna Elżbieta Karczewska',
             'lat'       => 51.568080,
             'lng'       => 15.524519,
-            'marker'    => '/dist/' . $assets['images/marker_2.png']
+            'marker'    => '/dist/' . $assets['images/marker_2.png'],
+            'description' => '<p>Podgórna 34<br />67-300 Szprotawa</p><p><a href="http://www.zagrodabiesiadna.pl/" target="_blank">zagrodabiesiadna.pl</a></p>'
         ];
 
         if (!$noCeremony) {
@@ -316,6 +320,17 @@
                     <?php endif; ?>
                 ];
 
+                const infoWindowContent = [
+                    <?php if ($data->ceremony_first_place->lat AND $data->ceremony_first_place->lng AND $data->ceremony_first_place->marker AND $data->ceremony_first_place->description) : ?>
+                    ['<div class="info_content"><h3><?= $data->ceremony_first_place->name ?></h3><?= $data->ceremony_first_place->description ?></div>'],
+                    <?php endif; ?>
+                    <?php if ($data->ceremony_second_place->lat AND $data->ceremony_second_place->lng AND $data->ceremony_second_place->marker AND $data->ceremony_second_place->description) : ?>
+                    ['<div class="info_content"><h3><?= $data->ceremony_second_place->name ?></h3><?= $data->ceremony_second_place->description ?></div>'],
+                    <?php endif; ?>
+                ];
+
+                let infoWindow = new google.maps.InfoWindow(), marker, i;
+
                 for( i = 0; i < markers.length; i++ ) {
                     const position = new google.maps.LatLng(markers[i][1], markers[i][2]);
 
@@ -326,6 +341,13 @@
                         map: map,
                         icon: markers[i][3]
                     });
+
+                    google.maps.event.addListener(marker, 'click', (function(marker, i) {
+                        return function() {
+                            infoWindow.setContent(infoWindowContent[i][0]);
+                            infoWindow.open(map, marker);
+                        }
+                    })(marker, i));
 
                     map.fitBounds(bounds);
                 }
