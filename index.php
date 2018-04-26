@@ -37,17 +37,19 @@
     $assetFile = file_exists('./dist/assets.json') ? json_decode(file_get_contents('./dist/assets.json')) : false;
 
     $assets = [
-        "images/img_1.jpg"              => "images/img_1.jpg",
-        "images/img_2.jpg"              => "images/img_2.jpg",
-        "images/marker_1.png"           => "images/marker_1.png",
-        "images/marker_2.png"           => "images/marker_2.png",
-        "images/adriana_mateusz.jpg"    => "images/adriana_mateusz.jpg",
-        "images/magda.jpg"              => "images/magda.jpg",
-        "images/dawid.jpg"              => "images/dawid.jpg",
-        "images/ola.jpg"                => "images/ola.jpg",
-        "images/marcin.jpg"             => "images/marcin.jpg",
-        "styles/main.css"               => "styles/main.css",
-        "scripts/main.js"               => "scripts/main.js"
+        "images/img_1.jpg"                                  => "images/img_1.jpg",
+        "images/img_2.jpg"                                  => "images/img_2.jpg",
+        "images/marker_1.png"                               => "images/marker_1.png",
+        "images/marker_2.png"                               => "images/marker_2.png",
+        "images/adriana_mateusz.jpg"                        => "images/adriana_mateusz.jpg",
+        "images/magda.jpg"                                  => "images/magda.jpg",
+        "images/dawid.jpg"                                  => "images/dawid.jpg",
+        "images/ola.jpg"                                    => "images/ola.jpg",
+        "images/marcin.jpg"                                 => "images/marcin.jpg",
+        "images/cywilny_rozmieszczenie_gosci.jpg"           => "images/cywilny_rozmieszczenie_gosci.jpg",
+        "images/cywilny_rozmieszczenie_gosci_mobile.jpg"    => "images/cywilny_rozmieszczenie_gosci_mobile.jpg",
+        "styles/main.css"                                   => "styles/main.css",
+        "scripts/main.js"                                   => "scripts/main.js"
     ];
 
     if ($assetFile) {
@@ -59,6 +61,8 @@
         $data->ceremony_type_context = "ślubu cywilnego";
         $data->ceremony_date = '10.08.2018';
         $data->ceremony_time = '14:30';
+        $data->ceremony_placement = '/dist/' . $assets['images/cywilny_rozmieszczenie_gosci.jpg'];
+        $data->ceremony_placement_mobile = '/dist/' . $assets['images/cywilny_rozmieszczenie_gosci_mobile.jpg'];
         $data->ceremony_first_place = (object) [
             'name'      => 'Urząd Stanu Cywilnego w Szprotawie',
             'lat'       => 51.565844,
@@ -101,6 +105,8 @@
         $data->ceremony_type_context = "ślubu kościelnego";
         $data->ceremony_date = '22.08.2020';
         $data->ceremony_time = false;
+        $data->ceremony_placement = null;
+        $data->ceremony_placement_mobile = null;
         $data->ceremony_first_place = (object) [
             'name'      => false,
             'lat'       => false,
@@ -309,6 +315,23 @@
             </div>
         </div>
         <?php endif; ?>
+
+        <?php if (!$noCeremony AND $data->ceremony_placement AND $data->ceremony_placement_mobile) : ?>
+        <div class="grid-item | placement">
+            <div class="box box-featured">
+                <div class="box--body">
+                    <h4>Rozmieszczenie gości</h4>
+                </div>
+            </div>
+
+            <div class="box box-placement">
+                <div class="box--body">
+                    <img src="<?= $data->ceremony_placement ?>" alt="Rozmieszczenie gości" class="is-desktop">
+                    <img src="<?= $data->ceremony_placement_mobile ?>" alt="Rozmieszczenie gości" class="is-mobile">
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
     </div>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -371,7 +394,7 @@
             }
         </script>
         <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkaudnMEUrjg4P4FR7UoKzIcD69r5dW88&callback=initMap">
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQY93j7XJC3KhHOXEOiisHCd4OTljDR8U&callback=initMap">
         </script>
     <?php endif; ?>
         

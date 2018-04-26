@@ -1,3 +1,5 @@
+const Masonry = require('masonry-layout');
+
 export function init($loader) {
     'use strict';
 
@@ -11,5 +13,15 @@ export function init($loader) {
 
     setTimeout(function() {
         loader.fadeOut();
+
+        if ($(window).width() > 1000) {
+            if ($('.js-mosaic-holder').length) {
+                new Masonry( '.js-mosaic-holder', {
+                    itemSelector: '.grid-item',
+                    columnWidth: '.grid-sizer',
+                    percentPosition: true,
+                });
+            }
+        }
     }, 3500);
 }
