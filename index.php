@@ -394,7 +394,7 @@
             }
         </script>
         <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAQY93j7XJC3KhHOXEOiisHCd4OTljDR8U&callback=initMap">
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAG39phxuhQfjvhBBQINCTLN1JDudQgJ2Q&callback=initMap">
         </script>
     <?php endif; ?>
         
