@@ -2,10 +2,10 @@
     date_default_timezone_set('Europe/Warsaw');
 
     $ceremonies = [
-        new DateTime('10.08.2018 15:30:00'),
-        new DateTime('12.08.2018 00:00:00'),
+        new DateTime('10.08.2018 15:00:00'),
+        new DateTime('11.08.2018 00:00:00'),
         new DateTime('22.08.2020 14:00:00'),
-        new DateTime('24.08.2020 00:00:00')
+        new DateTime('23.08.2020 00:00:00')
     ];
 
     $currentDate = new DateTime();
@@ -61,8 +61,10 @@
         $data->ceremony_type_context = "ślubu cywilnego";
         $data->ceremony_date = '10.08.2018';
         $data->ceremony_time = '14:30';
-        $data->ceremony_placement = '/dist/' . $assets['images/cywilny_rozmieszczenie_gosci.jpg'];
-        $data->ceremony_placement_mobile = '/dist/' . $assets['images/cywilny_rozmieszczenie_gosci_mobile.jpg'];
+//        $data->ceremony_placement = '/dist/' . $assets['images/cywilny_rozmieszczenie_gosci.jpg'];
+//        $data->ceremony_placement_mobile = '/dist/' . $assets['images/cywilny_rozmieszczenie_gosci_mobile.jpg'];
+        $data->ceremony_placement = null;
+        $data->ceremony_placement_mobile = null;
         $data->ceremony_first_place = (object) [
             'name'      => 'Urząd Stanu Cywilnego w Szprotawie',
             'lat'       => 51.565844,
@@ -403,7 +405,7 @@
         <div class="boxes-hld">
             <div class="full-box">
                 <div class="content">
-                    <h1>Gratulujemy Pani Pęczkowskiej ;)</h1>
+                    <h1>Dziękujemy za przybycie ;)</h1>
                 </div>
             </div>
         </div>
