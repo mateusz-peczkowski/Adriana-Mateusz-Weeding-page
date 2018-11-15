@@ -1,1 +1,12 @@
-
+.cache-loader
+dist
+node_modules
+npm-debug.log
+yarn-error.log
+packages-lock.json
+vendor
+resources/assets/config-local.json
+*/.env
+yarn.lock
+.idea/
+public/
