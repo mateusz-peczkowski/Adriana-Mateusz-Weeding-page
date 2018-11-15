@@ -9,4 +9,4 @@ resources/assets/config-local.json
 */.env
 yarn.lock
 .idea/
-public/
+public
