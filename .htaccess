@@ -1,0 +1,11 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{HTTP_HOST} !(.*).priv [NC]
+    RewriteCond %{HTTP_HOST} !^adriana-mateusz\.pl$  [NC]
+    RewriteRule ^(.*)$ https://adriana-mateusz.pl/$1 [R=301,L]
+
+    RewriteCond %{HTTP_HOST} !(.*).priv [NC]
+    RewriteCond %{SERVER_PORT} 80 
+    RewriteRule ^(.*)$ https://adriana-mateusz.pl/$1 [R,L]
+</IfModule>
