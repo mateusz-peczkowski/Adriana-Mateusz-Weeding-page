@@ -4,8 +4,8 @@
     $ceremonies = [
         new DateTime('10.08.2018 15:00:00'),
         new DateTime('11.08.2018 00:00:00'),
-        new DateTime('22.08.2020 14:00:00'),
-        new DateTime('23.08.2020 00:00:00')
+        new DateTime('13.08.2022 14:00:00'),
+        new DateTime('14.08.2022 00:00:00')
     ];
 
     $currentDate = new DateTime();
@@ -396,7 +396,7 @@
             }
         </script>
         <script async defer
-                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAG39phxuhQfjvhBBQINCTLN1JDudQgJ2Q&callback=initMap">
+                src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCVnhN2B1YDyfsB3IDx5iolj-rOOJvdbGI&callback=initMap">
         </script>
     <?php endif; ?>
         
