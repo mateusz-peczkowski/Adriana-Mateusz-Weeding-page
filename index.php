@@ -38,6 +38,7 @@
 
     $assets = [
         "images/img_1.jpg"                                  => "images/img_1.jpg",
+        "images/img_end.jpg"                                => "images/img_end.jpg",
         "images/img_2.jpg"                                  => "images/img_2.jpg",
         "images/marker_1.png"                               => "images/marker_1.png",
         "images/marker_2.png"                               => "images/marker_2.png",
@@ -46,8 +47,6 @@
         "images/dawid.jpg"                                  => "images/dawid.jpg",
         "images/ola.jpg"                                    => "images/ola.jpg",
         "images/marcin.jpg"                                 => "images/marcin.jpg",
-        "images/cywilny_rozmieszczenie_gosci.jpg"           => "images/cywilny_rozmieszczenie_gosci.jpg",
-        "images/cywilny_rozmieszczenie_gosci_mobile.jpg"    => "images/cywilny_rozmieszczenie_gosci_mobile.jpg",
         "styles/main.css"                                   => "styles/main.css",
         "scripts/main.js"                                   => "scripts/main.js"
     ];
@@ -61,10 +60,6 @@
         $data->ceremony_type_context = "ślubu cywilnego";
         $data->ceremony_date = '10.08.2018';
         $data->ceremony_time = '14:30';
-//        $data->ceremony_placement = '/dist/' . $assets['images/cywilny_rozmieszczenie_gosci.jpg'];
-//        $data->ceremony_placement_mobile = '/dist/' . $assets['images/cywilny_rozmieszczenie_gosci_mobile.jpg'];
-        $data->ceremony_placement = null;
-        $data->ceremony_placement_mobile = null;
         $data->ceremony_first_place = (object) [
             'name'      => 'Urząd Stanu Cywilnego w Szprotawie',
             'lat'       => 51.565844,
@@ -107,8 +102,6 @@
         $data->ceremony_type_context = "ślubu kościelnego";
         $data->ceremony_date = '13.08.2022';
         $data->ceremony_time = false;
-        $data->ceremony_placement = null;
-        $data->ceremony_placement_mobile = null;
         $data->ceremony_first_place = (object) [
             'name'      => false,
             'lat'       => false,
@@ -229,7 +222,7 @@
     <div class="boxes-hld | js-mosaic-holder">
         <div class="grid-sizer"></div>
 
-        <div class="grid-item | box box-content">
+        <div class="grid-item | box box-content<?= $noCeremony ? ' bigger' : '' ?>">
             <div class="box--body" style="background-image: url('/dist/<?= $assets['images/img_2.jpg'] ?>')">
                 <div class="content">
                     <?php if (!$noCeremony) : ?>
@@ -245,8 +238,8 @@
             </div>
         </div>
 
-        <div class="grid-item | box box-content">
-            <div class="box--body" style="background-image: url('/dist/<?= $assets['images/img_1.jpg'] ?>')">
+        <div class="grid-item | box box-content<?= $noCeremony ? ' bigger' : '' ?>">
+            <div class="box--body" style="background-image: url('/dist/<?= !$noCeremony ? $assets['images/img_1.jpg'] : $assets['images/img_end.jpg']; ?>')">
                 <div class="content">
                     <h1><?= $data->mrs ?> & <?= $data->mr ?><?= $noCeremony ? ' Pęczkowscy' : '' ?></h1>
                     <?php if (!$noCeremony) : ?>
@@ -313,23 +306,6 @@
             <div class="box box-map">
                 <div class="box--body no-padding">
                     <div id="map"></div>
-                </div>
-            </div>
-        </div>
-        <?php endif; ?>
-
-        <?php if (!$noCeremony AND $data->ceremony_placement AND $data->ceremony_placement_mobile) : ?>
-        <div class="grid-item | placement">
-            <div class="box box-featured">
-                <div class="box--body">
-                    <h4>Rozmieszczenie gości</h4>
-                </div>
-            </div>
-
-            <div class="box box-placement">
-                <div class="box--body">
-                    <img src="<?= $data->ceremony_placement ?>" alt="Rozmieszczenie gości" class="is-desktop">
-                    <img src="<?= $data->ceremony_placement_mobile ?>" alt="Rozmieszczenie gości" class="is-mobile">
                 </div>
             </div>
         </div>

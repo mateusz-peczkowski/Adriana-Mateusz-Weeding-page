@@ -413,11 +413,20 @@ body {
       width: calc(100% / 3);
       height: 60vh;
       min-height: 400px;
+
+      &.bigger {
+        height: 100vh;
+      }
     }
 
     .box-content:nth-child(3) {
       width: calc(100% / 3 * 2);
       height: 30vh;
+
+      &.bigger {
+        height: 70vh;
+        max-height: calc(100vh - 251px);
+      }
     }
 
     .box-persons {
