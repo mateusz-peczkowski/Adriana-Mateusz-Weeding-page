@@ -105,7 +105,7 @@
     } else {
         $data->ceremony_type = 'Ślub kościelny';
         $data->ceremony_type_context = "ślubu kościelnego";
-        $data->ceremony_date = '22.08.2020';
+        $data->ceremony_date = '13.08.2022';
         $data->ceremony_time = false;
         $data->ceremony_placement = null;
         $data->ceremony_placement_mobile = null;
